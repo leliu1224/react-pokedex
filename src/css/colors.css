@@ -1,0 +1,143 @@
+.background-type-grass {
+  background-color: #3e9709;
+}
+
+.background-type-fire {
+  background-color: #f67f0b;
+}
+
+.background-type-water {
+  background-color: #0a7abc;
+}
+
+.background-type-normal {
+  background-color: #ccc9aa;
+}
+
+.background-type-flying {
+  background-color: #5eb9b2;
+}
+
+.background-type-bug {
+  background-color: #bddd6e;
+}
+
+.background-type-poison {
+  background-color: #a719d7;
+}
+
+.background-type-electric {
+  background-color: #fffa24;
+}
+
+.background-type-ground {
+  background-color: #e1d158;
+}
+
+.background-type-fighting {
+  background-color: #e81319;
+}
+
+.background-type-psychic {
+  background-color: #ec0e63;
+}
+
+.background-type-rock {
+  background-color: #776a3e;
+}
+
+.background-type-ice {
+  background-color: #1995a1;
+}
+
+.background-type-ghost {
+  background-color: #472b53;
+}
+
+.background-type-dragon {
+  background-color: #8a55fd;
+}
+
+.background-type-dark {
+  background-color: #5f4632;
+}
+
+.background-type-steel {
+  background-color: #7b8e8a;
+}
+
+.background-type-fairy {
+  background-color: #ff9fc2;
+}
+
+.background-2-type-grass {
+  background-color: #67f70a;
+}
+
+.background-2-type-fire {
+  background-color: #f8b80e;
+}
+
+.background-2-type-water {
+  background-color: #36aff6;
+}
+
+.background-2-type-normal {
+  background-color: #eaeade;
+}
+
+.background-2-type-flying {
+  background-color: #dce5ea;
+}
+
+.background-2-type-bug {
+  background-color: #d9fe9e;
+}
+
+.background-2-type-poison {
+  background-color: #ca72eb;
+}
+
+.background-2-type-electric {
+  background-color: #f7ff85;
+}
+
+.background-2-type-ground {
+  background-color: #ede193;
+}
+
+.background-2-type-fighting {
+  background-color: #d36063;
+}
+
+.background-2-type-psychic {
+  background-color: #f55792;
+}
+
+.background-2-type-rock {
+  background-color: #94834f;
+}
+
+.background-2-type-ice {
+  background-color: #66d1e5;
+}
+
+.background-2-type-ghost {
+  background-color: #bd98cb;
+}
+
+.background-2-type-dragon {
+  background-color: #d6b1fe;
+}
+
+.background-2-type-dark {
+  background-color: #916852;
+}
+
+.background-2-type-steel {
+  background-color: #bbc5c4;
+}
+
+.background-2-type-fairy {
+  background-color: #fdd1e0;
+}

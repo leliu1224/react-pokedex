@@ -3,6 +3,7 @@ import Pokedex from "./Pokedex";
 import Pokemon from "./Pokemon";
 import "./css/normalize.css";
 import "./css/global.css";
+import "./css/colors.css";
 import { Route, Switch } from "react-router-dom";
 
 const App = () => (

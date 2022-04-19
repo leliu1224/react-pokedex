@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { toFirstCharUppercase } from "./constants";
 import axios from "axios";
-import pokemonMockData from "../src/data/pokemonMockData";
+import pokemonMockData from "../src/data/pokemonData";
 import pokemonAboutData from "../src/data/pokemonAboutData";
 import pokemonEvolutionData from "../src/data/pokemonEvolutionData";
 import Tab from "./components/Tab";
@@ -38,6 +38,27 @@ const Pokemon = (props) => {
     const { chain } = evolution;
     let classification = genera[7].genus;
     let flavor_text = flavor_text_entries[0].flavor_text;
+
+    var evoChain = [];
+    var evoData = evolution.chain;
+
+    do {
+      var evoDetails = evoData.evolves_to[0];
+
+      evoChain.push({
+        species_name: evoDetails.species.name,
+        min_level: !evoDetails ? 1 : evoDetails.evolution_details[0].min_level,
+        url: evoDetails.species.url,
+        trigger_name: !evoDetails
+          ? null
+          : evoDetails.evolution_details[0].trigger.name,
+        item: !evoDetails ? null : evoDetails.evolution_details[0].item,
+      });
+
+      evoData = evoData.evolves_to[0];
+    } while (!!evoData && evoData.evolves_to.length > 0);
+
+    console.log(evoChain);
     // let evolution = chain.evolves_to.species.name;
     // const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
     // const fullImageUrl = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg`;
@@ -115,7 +136,27 @@ const Pokemon = (props) => {
               })}
             </TabContent>
             <TabContent id="evolution" activeTab={activeTab}>
-              <p>Tab 4 works!</p>
+              {evoChain.map((evolution) => {
+                return (
+                  <>
+                    <p>{evolution.species_name}</p>
+                    <p>{evolution.item}</p>
+                    <p>{evolution.min_level}</p>
+                    <p>{evolution.trigger_name}</p>
+                    <p>{evolution.url}</p>
+
+                    {/* <img
+                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution.url
+                        .replace(
+                          "https://pokeapi.co/api/v2/pokemon-species/",
+                          ""
+                        )
+                        .replace("/", "")}.png`}
+                      alt=""
+                    /> */}
+                  </>
+                );
+              })}
             </TabContent>
           </div>
         </div>

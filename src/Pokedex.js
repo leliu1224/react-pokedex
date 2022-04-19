@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { toFirstCharUppercase } from "./constants";
-import mockData from "../src/data/mockData";
+import PokemonThumb from "./components/PokemonThumb";
+import mockDataJson from "../src/data/pokedexData";
+import pokemonDataJson from "../src/data/pokemonData";
 import axios from "axios";
 
 const Pokedex = (props) => {
   const { history } = props;
-  const [pokemonData, setPokemonData] = useState(mockData);
+  // set the url for the api request here
+  // const [pokemonData, setPokemonData] = useState(mockData);
   const [filter, setFilter] = useState("");
+  const [allPokemons, setAllPokemons] = useState([]);
+  const [loadMore, setLoadMore] = useState(
+    "https://pokeapi.co/api/v2/pokemon?limit=10"
+  );
 
   // what does the response data look like
   useEffect(() => {
@@ -16,6 +23,7 @@ const Pokedex = (props) => {
     //     const { data } = response;
     //     const { results } = data;
     //     const newPokemonData = {};
+    // set the next url for api request in state result.next
     //     results.forEach((pokemon, index) => {
     //       newPokemonData[index + 1] = {
     //         id: index + 1,
@@ -26,36 +34,64 @@ const Pokedex = (props) => {
     //     });
     //     setPokemonData(newPokemonData);
     //   });
+    getAllPokemons();
   }, []);
+
+  const getAllPokemons = async () => {
+    // const res = await fetch(loadMore);
+    // const data = await res.json();
+    const data = mockDataJson;
+
+    // setLoadMore(data.next);
+
+    function createPokemonObject(results) {
+      results.forEach(async (pokemon) => {
+        // const res = await fetch(
+        //   `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+        // );
+        // const data = await res.json();
+        const data = pokemonDataJson;
+        setAllPokemons((currentList) => [...currentList, data]);
+        await allPokemons.sort((a, b) => a.id - b.id);
+      });
+    }
+    createPokemonObject(data.results);
+  };
 
   const handleSearchChange = (e) => {
     setFilter(e.target.value);
   };
 
-  const getPokemonCard = (pokemonId) => {
-    const { id, name, sprites, types } = pokemonData[pokemonId];
-    var test = "";
-    return (
-      <div
-        className="card"
-        key={pokemonId}
-        onClick={() => history.push(`/${id}`)}
-      >
-        <p>No{String(id).padStart(3, "0")}</p>
-        <p>{`${name.toUpperCase()}`}</p>
-        <img
-          src={sprites.front_default}
-          style={{ width: "130px", height: "130px" }}
-          alt={name}
-        />
-        {types.map((type) => {
-          return (
-            <span className={`type-${type.type.name}`}>{type.type.name}</span>
-          );
-        })}
-      </div>
-    );
-  };
+  // const getPokemonCard = (pokemonId) => {
+  //   const { id, name, sprites, types } = pokemonData[pokemonId];
+  //   var test = "";
+  //   // console.log(types[types.length - 1].type.name);
+  //   let pills = types.reverse();
+  //   console.log(types);
+  //   console.log(pills);
+  //   return (
+  //     <div
+  //       className={`card background-type-${types[types.length - 1].type.name}`}
+  //       key={pokemonId}
+  //       onClick={() => history.push(`/${id}`)}
+  //     >
+  //       <p>No{String(id).padStart(3, "0")}</p>
+  //       <p>{`${name.toUpperCase()}`}</p>
+  //       <img
+  //         src={sprites.front_default}
+  //         style={{ width: "130px", height: "130px" }}
+  //         alt={name}
+  //       />
+  //       {pills.map((type) => {
+  //         return (
+  //           <span className={`type-pill background-2-type-${type.type.name}`}>
+  //             {type.type.name}
+  //           </span>
+  //         );
+  //       })}
+  //     </div>
+  //   );
+  // };
 
   return (
     <>
@@ -71,7 +107,23 @@ const Pokedex = (props) => {
           </div>
         </nav>
       </header>
-      {pokemonData ? (
+      <div className="pokemon-container">
+        <div className="all-container">
+          {allPokemons.map((pokemonStats, index) => (
+            <PokemonThumb
+              key={index}
+              id={pokemonStats.id}
+              image={pokemonStats.sprites.other.dream_world.front_default}
+              name={pokemonStats.name}
+              type={pokemonStats.types[0].type.name}
+            />
+          ))}
+        </div>
+        <button className="load-more" onClick={() => getAllPokemons()}>
+          Load more
+        </button>
+      </div>
+      {/* {pokemonData ? (
         <div className="cards">
           {Object.keys(pokemonData).map(
             (pokemonId) =>
@@ -81,7 +133,7 @@ const Pokedex = (props) => {
         </div>
       ) : (
         <p>Loading...</p>
-      )}
+      )} */}
     </>
   );
 };
