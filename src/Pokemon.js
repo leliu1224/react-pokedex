@@ -10,37 +10,94 @@ import TabContent from "./components/TabContent";
 import TabNavItem from "./components/TabNavItem";
 
 const Pokemon = (props) => {
+  // https://stackoverflow.com/questions/44318631/how-get-the-value-of-match-params-id-on-react-router
+  // https://stackoverflow.com/questions/70039498/how-to-use-props-match-params-id
   const { match, history } = props;
-  const { params } = match;
-  const { pokemonId } = params;
-  const [pokemon, setPokemon] = useState(pokemonMockData);
-  // https://pokeapi.co/api/v2/pokemon-species/{id or name}/
-  const [aboutPokemon, setAboutPokemon] = useState(pokemonAboutData);
-  const [evolution, setEvolution] = useState(pokemonEvolutionData);
+  const { pokemonId } = match.params;
+  const [pokemonInfo, setPokemonInfo] = useState();
+  // https://pokeapi.co/api/v2/pokemonInfo-species/{id or name}/
+  // - rest of the pokemon data
+  // - what properties are needed
+
+  // about text
+
+  // evolution
+
+  // stats
+  // moves
+  // types
+  // height, weight
+
+  // flavor text
+  const [pokemonFlavorText, setPokemonFlavorText] = useState(pokemonAboutData);
+  // evolution
+  const [pokemonEvolution, setPokemonEvolution] =
+    useState(pokemonEvolutionData);
+  // for the tabs
   const [activeTab, setActiveTab] = useState("about");
 
   useEffect(() => {
+    // - multiple get with axios
+    // https://stackoverflow.com/questions/61385454/how-to-post-multiple-axios-requests-at-the-same-time
+    // https://www.storyblok.com/tp/how-to-send-multiple-requests-using-axios
+
+    const pokemonAboutText = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonId}/`
+    );
+    const pokemonBasicInfo = axios.get(
+      `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`
+    );
+    const pokemonEvolutionInfo = axios.get(
+      `https://pokeapi.co/api/v2/evolution-chain/${pokemonId}/`
+    );
+
+    // console.log(pokemonAboutText);
+
+    axios
+      .all([pokemonAboutText, pokemonBasicInfo, pokemonEvolutionInfo])
+      .then(
+        axios.spread((...responses) => {
+          const responseOne = responses[0];
+          const responseTwo = responses[1];
+          const responseThree = responses[2];
+          setPokemonInfo(responseOne.data);
+          setPokemonFlavorText(responseTwo.data);
+          setPokemonEvolution(responseThree.data);
+        })
+      )
+      .catch(function (error) {
+        setPokemonInfo(false);
+        setPokemonFlavorText(false);
+        setPokemonEvolution(false);
+      });
     // axios
     //   .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
     //   .then(function (response) {
     //     const { data } = response;
-    //     setPokemon(data);
+    //     setPokemonInfo(data);
+    //     console.log(data);
     //   })
     //   .catch(function (error) {
-    //     setPokemon(false);
+    //     setPokemonInfo(false);
     //   });
   }, [pokemonId]);
 
   const generatePokemonJSX = (pokemon) => {
     const { name, id, species, height, weight, stats, types, sprites, moves } =
       pokemon;
-    const { flavor_text_entries, genera } = aboutPokemon;
-    const { chain } = evolution;
+    const { flavor_text_entries, genera } = pokemonFlavorText;
+    const { chain } = pokemonEvolution;
     let classification = genera[7].genus;
-    let flavor_text = flavor_text_entries[0].flavor_text;
+    let flavor_text = flavor_text_entries[0].flavor_text
+      .replace("\f", "\n")
+      .replace("\u00ad\n", "")
+      .replace("\u00ad", "")
+      .replace(" -\n", " - ")
+      .replace("-\n", "-")
+      .replace("\n", " ");
 
     var evoChain = [];
-    var evoData = evolution.chain;
+    var evoData = pokemonEvolution.chain;
 
     do {
       var evoDetails = evoData.evolves_to[0];
@@ -166,11 +223,13 @@ const Pokemon = (props) => {
 
   return (
     <>
-      {pokemon === undefined && <p>Loading...</p>}
-      {pokemon !== undefined && pokemon && generatePokemonJSX(pokemon)}
-      {pokemon === false && <p> Pokemon not found</p>}
+      {pokemonInfo === undefined && <p>Loading...</p>}
+      {pokemonInfo !== undefined &&
+        pokemonInfo &&
+        generatePokemonJSX(pokemonInfo)}
+      {pokemonInfo === false && <p> Pokemon not found</p>}
 
-      {pokemon !== undefined && (
+      {pokemonInfo !== undefined && (
         <button onClick={() => history.push("/")}>back to pokedex</button>
       )}
     </>
