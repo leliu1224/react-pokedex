@@ -1,15 +1,136 @@
+@font-face {
+  font-family: "PressStart2P";
 
+  src: url("PressStart2P.ttf") format("truetype");
+}
 
-.cards {
+* {
+  font-family: "PressStart2P", Helvetica, Arial, sans-serif;
+  cursor: default;
+}
+
+body {
+  font-size: 14px;
+  background: #212529;
+}
+
+/* CARD STYLINGS */
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.name {
+  font-size: 1em;
+  margin-top: 0;
+}
+
+.img-container {
   display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.inline-text {
+  display: inline-block;
+}
+.nes-btn {
+  background-color: initial;
+}
+
+.type-button {
+  font-size: 0.75em !important;
+  height: auto !important;
+  margin-right: 0.25em;
+  padding: 0.25em 1em;
+  color: #ffffff;
+  border: 3px solid black;
+  border-radius: 4px;
+}
+
+.pokedex-container {
+  max-width: 1280px;
+  margin: auto;
+  padding: 1em;
+  background-color: grey;
+}
+
+.pokemon-container {
+  max-width: 480px;
+  margin: auto;
+  background-color: grey;
+}
+
+.pokemon-info {
   padding: 1em;
 }
 
+.pokedex-text {
+  padding: 1em;
+}
+
+.evolution-tab-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.evolution-container {
+  width: 50%;
+}
+
+/* MOVES */
+table.moves-table td {
+  padding: 1em;
+}
+
+/* STATS */
+.stat-container {
+  margin-bottom: 1em;
+}
+.stat-name {
+  margin-bottom: 0;
+}
+
+.stat-bar {
+  width: 100%;
+}
+
+.stat-bar .hp {
+  background-color: #ff0100;
+}
+
+.stat-bar .attack {
+  background-color: #f08030;
+}
+.stat-bar .defense {
+  background-color: #f8d030;
+}
+.stat-bar .special-attack {
+  background-color: #6791f0;
+}
+.stat-bar .special-defense {
+  background-color: #78c950;
+}
+.stat-bar .speed {
+  background-color: #f85887;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card {
-  margin: 1em;
+  width: 300px;
+  margin: 1em !important;
   padding: 1em;
   cursor: pointer;
-  border: 1px solid #eeeeee;
 }
 
 .tab-list {
@@ -28,6 +149,12 @@
   border: solid #cccccc;
   border-width: 1px 1px 0 1px;
   background-color: white;
+}
+
+.tab-content {
+  padding: 1em;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }
 
 /* POKEDEX */

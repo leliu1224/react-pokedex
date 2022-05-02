@@ -29,6 +29,7 @@ const Pokemon = (props) => {
   // height, weight
 
   // flavor text
+  // type of pokemon (Seed)
   const [pokemonFlavorText, setPokemonFlavorText] = useState(pokemonAboutData);
   // evolution
   const [pokemonEvolution, setPokemonEvolution] =
@@ -47,22 +48,32 @@ const Pokemon = (props) => {
     const pokemonBasicInfo = axios.get(
       `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`
     );
-    const pokemonEvolutionInfo = axios.get(
-      `https://pokeapi.co/api/v2/evolution-chain/${pokemonId}/`
-    );
 
-    // console.log(pokemonAboutText);
+    // console.log(pokemonId);
 
     axios
-      .all([pokemonAboutText, pokemonBasicInfo, pokemonEvolutionInfo])
+      .all([pokemonAboutText, pokemonBasicInfo])
       .then(
         axios.spread((...responses) => {
           const responseOne = responses[0];
           const responseTwo = responses[1];
-          const responseThree = responses[2];
           setPokemonInfo(responseOne.data);
-          setPokemonFlavorText(responseTwo.data);
-          setPokemonEvolution(responseThree.data);
+          setPokemonFlavorText(responseTwo.data); // evolution data is actually from here
+          console.log(responseTwo.data.evolution_chain);
+          axios
+            .get(responseTwo.data.evolution_chain.url)
+            .then((response) => {
+              console.log("success");
+              console.log(response.data);
+              setPokemonEvolution(response.data);
+            })
+            .catch(function (error) {
+              console.log("error");
+
+              console.log(error);
+            });
+          // console.log(responseOne.data);
+          // console.log(responseTwo.data);
         })
       )
       .catch(function (error) {
@@ -87,6 +98,22 @@ const Pokemon = (props) => {
       pokemon;
     const { flavor_text_entries, genera } = pokemonFlavorText;
     const { chain } = pokemonEvolution;
+    const levelupMoves = moves.filter((move) => {
+      return (
+        move.version_group_details[0].move_learn_method.name === "level-up"
+      );
+    });
+    console.log(
+      levelupMoves.sort((a, b) =>
+        a.version_group_details[0].level_learned_at >
+        b.version_group_details[0].level_learned_at
+          ? 1
+          : b.version_group_details[0].level_learned_at >
+            a.version_group_details[0].level_learned_at
+          ? -1
+          : 0
+      )
+    );
     let classification = genera[7].genus;
     let flavor_text = flavor_text_entries[0].flavor_text
       .replace("\f", "\n")
@@ -115,109 +142,138 @@ const Pokemon = (props) => {
       evoData = evoData.evolves_to[0];
     } while (!!evoData && evoData.evolves_to.length > 0);
 
-    console.log(evoChain);
+    // console.log(evoChain);
     // let evolution = chain.evolves_to.species.name;
     // const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
     // const fullImageUrl = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg`;
     const { front_default } = sprites;
     return (
-      <>
-        <h1>
-          {`No${String(id).padStart(3, "0")}`} {name.toUpperCase()}
-          <img src={front_default} />
-        </h1>
+      <section className="pokemon-container">
+        <button onClick={() => history.push("/")}>{"<"}</button>
+        <h1 className="pokedex-text">PokeDex</h1>
+        <div className="pokemon-info">
+          <h2>
+            {`No${String(id).padStart(3, "0")}`} {name.toUpperCase()}
+            <img src={front_default} />
+          </h2>
+          <p>{classification}</p>
+          <p>Height: {height}cm </p>
+          <p>Weight: {weight / 10}kg </p>
+          <p className="inline-text">Types:</p>
+          {types.map((typeInfo) => {
+            const { type } = typeInfo;
+            const { name } = type;
+            return <span key={name}> {`${name}`}</span>;
+          })}
+        </div>
         {/* <img style={{ width: "300px", height: "300px" }} src={fullImageUrl} /> */}
+        <div className="tab-container">
+          <div className="outlet">
+            <TabContent id="about" activeTab={activeTab}>
+              <p>{flavor_text}</p>
+            </TabContent>
+            <TabContent id="stats" activeTab={activeTab}>
+              {stats.map((stat, i) => {
+                const widthPercetage = {
+                  width: `${(stat.base_stat / 200) * 100}%`,
+                };
 
-        <div className="Tabs">
+                return (
+                  <div className="stat-container">
+                    <p className="stat-name">
+                      {" "}
+                      {`${stat.stat.name.replace("-", " ")}`}
+                    </p>
+                    <div className="stat-bar">
+                      <div
+                        className={`${stat.stat.name}`}
+                        style={widthPercetage}
+                      >
+                        {`${stat.base_stat}`}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </TabContent>
+            <TabContent id="moves" activeTab={activeTab}>
+              <table className="moves-table">
+                <thead>
+                  <tr>
+                    <td>Lvl</td>
+                    <td>Name</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {levelupMoves.map((move) => {
+                    return (
+                      <tr>
+                        <td>
+                          {move.version_group_details[0].level_learned_at}
+                        </td>
+                        <td>{move.move.name.replace("-", " ")}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TabContent>
+            <TabContent id="evolution" activeTab={activeTab}>
+              {evoChain.map((evolution) => {
+                return (
+                  <div className="evolution-tab-container">
+                    <div className="evolution-container">
+                      <p>By {evolution.trigger_name}</p>
+                      <p>With {evolution.item}</p>
+                      <p>Level {evolution.min_level}</p>
+                    </div>
+                    <div className="evolution-container">
+                      <p>{evolution.species_name}</p>
+                      <img
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution.url
+                          .replace(
+                            "https://pokeapi.co/api/v2/pokemon-species/",
+                            ""
+                          )
+                          .replace("/", "")}.png`}
+                        alt=""
+                      />
+                    </div>
+
+                    {/* <p>{evolution.url}</p> */}
+                  </div>
+                );
+              })}
+            </TabContent>
+          </div>
           <ul className="tab-list">
             <TabNavItem
-              title="About"
+              title="ABOUT"
               id="about"
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />
             <TabNavItem
-              title="Stats"
+              title="STATS"
               id="stats"
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />
             <TabNavItem
-              title="Moves"
+              title="MOVES"
               id="moves"
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />
             <TabNavItem
-              title="Evolution"
+              title="EVOLUTION"
               id="evolution"
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />
           </ul>
-
-          <div className="outlet">
-            <TabContent id="about" activeTab={activeTab}>
-              <p>{flavor_text}</p>
-              <p>{classification}</p>
-              <p>Height: {height}cm </p>
-              <p>Weight: {weight / 10}kg </p>
-              <h6> Types:</h6>
-              {types.map((typeInfo) => {
-                const { type } = typeInfo;
-                const { name } = type;
-                return <p key={name}> {`${name}`}</p>;
-              })}{" "}
-            </TabContent>
-            <TabContent id="stats" activeTab={activeTab}>
-              {stats.map((stat, i) => {
-                return (
-                  <li key={`${stat.stat.name}-${i}`}>
-                    <span> {`${stat.stat.name}`}</span>
-                    <span> {`${stat.base_stat}`}</span>
-                  </li>
-                );
-              })}
-            </TabContent>
-            <TabContent id="moves" activeTab={activeTab}>
-              {moves.map((move) => {
-                return (
-                  <>
-                    <p>{move.move.name} - </p>
-                    <p>
-                      Level Learned at:{" "}
-                      {move.version_group_details[0].level_learned_at}
-                    </p>
-                  </>
-                );
-              })}
-            </TabContent>
-            <TabContent id="evolution" activeTab={activeTab}>
-              {evoChain.map((evolution) => {
-                return (
-                  <>
-                    <p>{evolution.species_name}</p>
-                    <p>{evolution.item}</p>
-                    <p>{evolution.min_level}</p>
-                    <p>{evolution.trigger_name}</p>
-                    <p>{evolution.url}</p>
-
-                    {/* <img
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution.url
-                        .replace(
-                          "https://pokeapi.co/api/v2/pokemon-species/",
-                          ""
-                        )
-                        .replace("/", "")}.png`}
-                      alt=""
-                    /> */}
-                  </>
-                );
-              })}
-            </TabContent>
-          </div>
         </div>
-      </>
+      </section>
     );
   };
 
@@ -228,10 +284,6 @@ const Pokemon = (props) => {
         pokemonInfo &&
         generatePokemonJSX(pokemonInfo)}
       {pokemonInfo === false && <p> Pokemon not found</p>}
-
-      {pokemonInfo !== undefined && (
-        <button onClick={() => history.push("/")}>back to pokedex</button>
-      )}
     </>
   );
 };

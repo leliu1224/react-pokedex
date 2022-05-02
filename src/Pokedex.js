@@ -12,7 +12,7 @@ const Pokedex = (props) => {
   const [filter, setFilter] = useState("");
   const [allPokemons, setAllPokemons] = useState([]);
   const [loadMore, setLoadMore] = useState(
-    "https://pokeapi.co/api/v2/pokemon?limit=10"
+    "https://pokeapi.co/api/v2/pokemon?limit=4"
   );
 
   // what does the response data look like
@@ -97,37 +97,32 @@ const Pokedex = (props) => {
   // };
 
   return (
-    <>
-      <header position="static">
-        <nav>
-          <div>
-            <span>Search</span>
-            <input
-              onChange={handleSearchChange}
-              label="Pokemon"
-              variant="standard"
-            />
-          </div>
-        </nav>
-      </header>
-      <div className="pokemon-container">
-        <div className="cards">
-          {allPokemons
-            .sort((a, b) => a.id - b.id)
-            .map((pokemonStats, index) => (
-              <PokemonThumb
-                key={index}
-                id={pokemonStats.id}
-                image={pokemonStats.sprites.front_default}
-                name={pokemonStats.name}
-                types={pokemonStats.types}
-              />
-            ))}
-        </div>
-        <button className="load-more" onClick={() => getAllPokemons()}>
-          Load more
-        </button>
+    <section className="pokedex-container nes-container is-rounded">
+      <h1 className="pokedex-text">PokeDex</h1>
+      <div>
+        <input
+          onChange={handleSearchChange}
+          placeholder="Search Pokemon"
+          className="nes-input"
+        />
       </div>
+
+      <div className="cards">
+        {allPokemons
+          .sort((a, b) => a.id - b.id)
+          .map((pokemonStats, index) => (
+            <PokemonThumb
+              key={index}
+              id={pokemonStats.id}
+              image={pokemonStats.sprites.front_default}
+              name={pokemonStats.name}
+              types={pokemonStats.types}
+            />
+          ))}
+      </div>
+      <button className="load-more" onClick={() => getAllPokemons()}>
+        {"<"}
+      </button>
       {/* {pokemonData ? (
         <div className="cards">
           {Object.keys(pokemonData).map(
@@ -139,7 +134,7 @@ const Pokedex = (props) => {
       ) : (
         <p>Loading...</p>
       )} */}
-    </>
+    </section>
   );
 };
 
