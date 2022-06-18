@@ -1,6 +1,6 @@
 import React from "react";
 import Pokedex from "./Pokedex";
-import Pokemon from "./Pokemon";
+import Pokemon from "./PokemonDetails";
 import "./css/normalize.css";
 import "./css/styles.scss";
 import "./css/global.css";

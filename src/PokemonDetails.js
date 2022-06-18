@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { toFirstCharUppercase } from "./constants";
 import axios from "axios";
-import pokemonMockData from "../src/data/pokemonData";
-import pokemonAboutData from "../src/data/pokemonAboutData";
-import pokemonEvolutionData from "../src/data/pokemonEvolutionData";
+import pokemonMockData from "./data/pokemonData";
+import pokemonAboutData from "./data/pokemonAboutData";
+import pokemonEvolutionData from "./data/pokemonEvolutionData";
 import Tab from "./components/Tab";
 import TabContent from "./components/TabContent";
 import TabNavItem from "./components/TabNavItem";
@@ -59,12 +59,17 @@ const Pokemon = (props) => {
           const responseTwo = responses[1];
           setPokemonInfo(responseOne.data);
           setPokemonFlavorText(responseTwo.data); // evolution data is actually from here
+
           console.log(responseTwo.data.evolution_chain);
+          // multiple pokemons can share the same evolution chain
+
+          // 'https://pokeapi.co/api/v2/evolution-chain/1/' for Ivysaur
+          // evolves_from_species":{"name":"bulbasaur","url":"https://pokeapi.co/api/v2/pokemon-species/1/"}
           axios
             .get(responseTwo.data.evolution_chain.url)
             .then((response) => {
-              console.log("success");
-              console.log(response.data);
+              // console.log("success");
+              // console.log(response.data);
               setPokemonEvolution(response.data);
             })
             .catch(function (error) {
@@ -149,25 +154,59 @@ const Pokemon = (props) => {
     const { front_default } = sprites;
     return (
       <section className="pokemon-container">
-        <button onClick={() => history.push("/")}>{"<"}</button>
+        <button className="back-button" onClick={() => history.push("/")}>
+          {"<"}
+        </button>
         <h1 className="pokedex-text">PokeDex</h1>
         <div className="pokemon-info">
-          <h2>
-            {`No${String(id).padStart(3, "0")}`} {name.toUpperCase()}
-            <img src={front_default} />
-          </h2>
-          <p>{classification}</p>
-          <p>Height: {height}cm </p>
-          <p>Weight: {weight / 10}kg </p>
-          <p className="inline-text">Types:</p>
-          {types.map((typeInfo) => {
-            const { type } = typeInfo;
-            const { name } = type;
-            return <span key={name}> {`${name}`}</span>;
-          })}
+          <h2>{name.toUpperCase()}</h2>
+          <div className="pokemon-details">
+            <div className="pokemon-details-image">
+              <img src={front_default} />
+            </div>
+            <div className="pokemon-details-text">
+              <p>{classification}</p>
+              <p>Height: {height}cm </p>
+              <p>Weight: {weight / 10}kg </p>
+              <p className="inline-text">Types:</p>
+              {types.map((typeInfo) => {
+                const { type } = typeInfo;
+                const { name } = type;
+                return <span key={name}> {`${name}`}</span>;
+              })}
+            </div>
+          </div>
         </div>
         {/* <img style={{ width: "300px", height: "300px" }} src={fullImageUrl} /> */}
-        <div className="tab-container">
+        <div className="tab-content-container">
+          <div className="tab-container">
+            <ul className="tab-list">
+              <TabNavItem
+                title="ABOUT"
+                id="about"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+              <TabNavItem
+                title="STATS"
+                id="stats"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+              <TabNavItem
+                title="MOVES"
+                id="moves"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+              <TabNavItem
+                title="EVOLUTION"
+                id="evolution"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+            </ul>
+          </div>
           <div className="outlet">
             <TabContent id="about" activeTab={activeTab}>
               <p>{flavor_text}</p>
@@ -223,12 +262,12 @@ const Pokemon = (props) => {
                 return (
                   <div className="evolution-tab-container">
                     <div className="evolution-container">
-                      <p>By {evolution.trigger_name}</p>
-                      <p>With {evolution.item}</p>
-                      <p>Level {evolution.min_level}</p>
+                      <p>By {evolution.trigger_name || ""}</p>
+                      <p>With {evolution.item || ""}</p>
+                      <p>Level {evolution.min_level || ""}</p>
                     </div>
                     <div className="evolution-container">
-                      <p>{evolution.species_name}</p>
+                      <p>{evolution.species_name || ""}</p>
                       <img
                         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution.url
                           .replace(
@@ -246,32 +285,6 @@ const Pokemon = (props) => {
               })}
             </TabContent>
           </div>
-          <ul className="tab-list">
-            <TabNavItem
-              title="ABOUT"
-              id="about"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            />
-            <TabNavItem
-              title="STATS"
-              id="stats"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            />
-            <TabNavItem
-              title="MOVES"
-              id="moves"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            />
-            <TabNavItem
-              title="EVOLUTION"
-              id="evolution"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            />
-          </ul>
         </div>
       </section>
     );

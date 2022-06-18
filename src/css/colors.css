@@ -71,74 +71,93 @@
   background-color: #ff9fc2;
 }
 
-.background-2-type-grass {
+.background-2-type-grass,
+.nes-btn.background-2-type-grass:hover {
   background-color: #67f70a;
 }
 
-.background-2-type-fire {
+
+.background-2-type-fire,
+.nes-btn.background-2-type-fire:hover {
   background-color: #f8b80e;
 }
 
-.background-2-type-water {
+.background-2-type-water,
+.nes-btn.background-2-type-water:hover {
   background-color: #36aff6;
 }
 
-.background-2-type-normal {
+.background-2-type-normal,
+.nes-btn.background-2-type-normal:hover {
   background-color: #eaeade;
 }
 
-.background-2-type-flying {
+.background-2-type-flying,
+.nes-btn.background-2-type-flying:hover {
   background-color: #dce5ea;
 }
 
-.background-2-type-bug {
+.background-2-type-bug,
+.nes-btn.background-2-type-bug:hover {
   background-color: #d9fe9e;
 }
 
-.background-2-type-poison {
+.background-2-type-poison,
+.nes-btn.background-2-type-poison:hover {
   background-color: #ca72eb;
 }
 
-.background-2-type-electric {
+.background-2-type-electric,
+.nes-btn.background-2-type-electric:hover {
   background-color: #f7ff85;
 }
 
-.background-2-type-ground {
+.background-2-type-ground,
+.nes-btn.background-2-type-ground:hover {
   background-color: #ede193;
 }
 
-.background-2-type-fighting {
+.background-2-type-fighting,
+.nes-btn.background-2-type-fighting:hover {
   background-color: #d36063;
 }
 
-.background-2-type-psychic {
+.background-2-type-psychic,
+.nes-btn.background-2-type-psychic:hover {
   background-color: #f55792;
 }
 
-.background-2-type-rock {
+.background-2-type-rock,
+.nes-btn.background-2-type-rock:hover {
   background-color: #94834f;
 }
 
-.background-2-type-ice {
+.background-2-type-ice,
+.nes-btn.background-2-type-ice:hover {
   background-color: #66d1e5;
 }
 
-.background-2-type-ghost {
+.background-2-type-ghost,
+.nes-btn.background-2-type-ghost:hover {
   background-color: #bd98cb;
 }
 
-.background-2-type-dragon {
+.background-2-type-dragon,
+.nes-btn.background-2-type-dragon:hover {
   background-color: #d6b1fe;
 }
 
-.background-2-type-dark {
+.background-2-type-dark,
+.nes-btn.background-2-type-dark:hover {
   background-color: #916852;
 }
 
-.background-2-type-steel {
+.background-2-type-steel,
+.nes-btn.background-2-type-steel:hover {
   background-color: #bbc5c4;
 }
 
-.background-2-type-fairy {
+.background-2-type-fairy,
+.nes-btn.background-2-type-fairy:hover {
   background-color: #fdd1e0;
 }
