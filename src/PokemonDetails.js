@@ -15,26 +15,13 @@ const Pokemon = (props) => {
   const { match, history } = props;
   const { pokemonId } = match.params;
   const [pokemonInfo, setPokemonInfo] = useState();
-  // https://pokeapi.co/api/v2/pokemonInfo-species/{id or name}/
-  // - rest of the pokemon data
-  // - what properties are needed
-
-  // about text
-
-  // evolution
-
-  // stats
-  // moves
-  // types
-  // height, weight
-
   // flavor text
   // type of pokemon (Seed)
   const [pokemonFlavorText, setPokemonFlavorText] = useState(pokemonAboutData);
   // evolution
   const [pokemonEvolution, setPokemonEvolution] =
     useState(pokemonEvolutionData);
-  // for the tabs
+  // set the tab that is active
   const [activeTab, setActiveTab] = useState("about");
 
   useEffect(() => {
@@ -48,9 +35,7 @@ const Pokemon = (props) => {
     const pokemonBasicInfo = axios.get(
       `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`
     );
-
-    // console.log(pokemonId);
-
+    
     axios
       .all([pokemonAboutText, pokemonBasicInfo])
       .then(
