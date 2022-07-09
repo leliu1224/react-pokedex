@@ -1,11 +1,11 @@
-@font-face {
+/* @font-face {
   font-family: "PressStart2P";
 
   src: url("PressStart2P.ttf") format("truetype");
-}
+} */
 
 * {
-  font-family: "PressStart2P", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   cursor: default;
 }
 
@@ -26,10 +26,10 @@ body {
 /* POKEDEX PAGE */
 
 .pokedex-container {
-  max-width: 480px;
+  max-width: 375px;
   margin: auto !important;
   padding: 1em;
-  background-color: #dae3c2;
+  background-color: #ffffff;
 }
 
 .search-container {
@@ -45,21 +45,57 @@ body {
   text-align: center;
 }
 
-/* Pokemon thumbnails */
+
+/* CARDS */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+  padding: 1em;
+  cursor: pointer;
+  border-bottom: 1px solid #dddddd;
+}
 
 .name {
-  font-size: 1em;
+  font-size: 2em;
   margin-top: 0;
-  text-align: center;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  color: #333333;
+}
+
+.detail-wrapper,
+.img-container {
+  position: relative;
+}
+
+.detail-wrapper {
+  width: 60%;
+}
+
+.detail-wrapper small {
+  display: block;
+  margin-bottom: 5px;
+  color: #bbbbbb;
 }
 
 .img-container {
-  position: relative;
+  width: 40%;
   text-align: center;
 }
 
 .img-container img {
   z-index: 1;
+  width: 100%;
+  max-width: 100px;
 }
 
 .img-background {
@@ -79,16 +115,13 @@ body {
 }
 
 .type-button {
-  font-size: 0.75em !important;
-  display: block;
-  height: auto !important;
-  margin-top: 0.5em;
-  margin-right: 0.25em;
-  padding: 0.25em 1em;
+  margin-right: 0.5em;
+  padding: 0.5em 1.5em;
   text-align: center;
-  color: #000000;
-  border: 3px solid black;
-  border-radius: 4px;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
 }
 
 
@@ -96,10 +129,10 @@ body {
 
 .pokemon-container {
   position: relative;
-  max-width: 480px;
+  max-width: 375px;
   height: 800px;
   margin: auto;
-  background-color: #dae3c2;
+  background-color: #ffffff;
 }
 
 .pokemon-container .back-button {
@@ -110,18 +143,38 @@ body {
 }
 
 .pokemon-info {
-  padding: 1em;
+  position: sticky;
+  top: 150px;
+  padding: 60px 1em;
+
+/* transform: translateY(150px); */
+  border-radius: 20px;
+  background-color: #ffffff;
 }
 
+/* POKEMON DETAILS */
+
 .pokemon-details {
-  display: flex;
+  /* display: flex; */
+  text-align: center;
 }
 
 .pokemon-details-image {
-  width: 25%;
+  position: absolute;
+  top: -100px;
+  left: 0;
+
+/* width: 150px; */
+  width: 100%;
+  text-align: center;
 }
+
+.pokemon-details-image img {
+  max-width: 150px;
+}
+
 .pokemon-details-text {
-  width: 75%;
+  /* width: 75%; */
 }
 
 .evolution-tab-container {
@@ -149,12 +202,31 @@ table.moves-table td {
   padding: 1em;
 }
 
+.moves-list {
+  padding-left: 0;
+}
+
+.move-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dddddd;
+}
+
+.move-name {
+  text-transform: capitalize;
+}
+
+.move-level {
+  color: #555555;
+}
+
 
 /* STATS */
 .stat-container {
   margin-bottom: 1.5em;
 }
 .stat-name {
+  margin-top: 0;
   margin-bottom: 0;
   text-transform: capitalize;
 }
@@ -183,26 +255,18 @@ table.moves-table td {
   background-color: #f85887;
 }
 
-/* CARDS */
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.card {
-  box-sizing: border-box;
-  width: 40%;
-  margin: 2.5%;
-  padding: 1.5em;
-  cursor: pointer;
-  border-radius: 10%;
-}
-
-.card.nes-btn:hover {
-  background-color: initial;
-}
 
 /* TABS */
+
+.tab-content-container {
+  position: relative;
+  z-index: 2;
+  transform: translateY(90px);
+  border-radius: 20px;
+  background-color: #ffffff;
+  ;
+}
 
 .tab-container {
   /* position: absolute;
@@ -211,21 +275,27 @@ table.moves-table td {
 }
 
 .tab-list {
-  margin-bottom: 0;
+  margin: 0 1em;
   padding-left: 0;
+  text-align: center;
   border-bottom: 1px solid #cccccc;
 }
 
 .tab-list-item {
   display: inline-block;
   margin-bottom: -1px;
-  padding: 0.5rem 0.75rem;
+  padding: 1em 2em;
   list-style: none;
+  cursor: pointer;
+  color: #bbbbbb;
 }
 
 .tab-list-active {
-  border: solid #cccccc;
-  border-width: 1px 1px 0 1px;
+  color: #000000;
+  border-bottom: 3px solid #bbbbbb;
+
+/* border: solid #cccccc;
+  border-width: 1px 1px 0 1px; */
   background-color: white;
 }
 
@@ -235,7 +305,7 @@ table.moves-table td {
 
 /* border-top: 1px solid #000000;
   border-bottom: 1px solid #000000; */
-  padding: 2em;
+  padding: 1em;
 }
 
 /* POKEDEX */

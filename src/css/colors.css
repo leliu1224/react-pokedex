@@ -1,25 +1,25 @@
 .background-type-grass {
-  background-color: #3e9709;
+  background-color: #63b958;
 }
 
 .background-type-fire {
-  background-color: #f67f0b;
+  background-color: #fd7d24;
 }
 
 .background-type-water {
-  background-color: #0a7abc;
+  background-color: #4a90da;
 }
 
 .background-type-normal {
-  background-color: #ccc9aa;
+  background-color: #9da0aa;
 }
 
 .background-type-flying {
-  background-color: #5eb9b2;
+  background-color: #748fc9;
 }
 
 .background-type-bug {
-  background-color: #bddd6e;
+  background-color: #8cb230;
 }
 
 .background-type-poison {
@@ -27,137 +27,137 @@
 }
 
 .background-type-electric {
-  background-color: #fffa24;
+  background-color: #eed535;
 }
 
 .background-type-ground {
-  background-color: #e1d158;
+  background-color: #dd7748;
 }
 
 .background-type-fighting {
-  background-color: #e81319;
+  background-color: #d04164;
 }
 
 .background-type-psychic {
-  background-color: #ec0e63;
+  background-color: #ea5d60;
 }
 
 
 .background-type-rock {
-  background-color: #776a3e;
+  background-color: #baab82;
 }
 
 .background-type-ice {
-  background-color: #1995a1;
+  background-color: #61cec0;
 }
 
 .background-type-ghost {
-  background-color: #472b53;
+  background-color: #556aae;
 }
 
 .background-type-dragon {
-  background-color: #8a55fd;
+  background-color: #186fc2;
 }
 
 .background-type-dark {
-  background-color: #5f4632;
+  background-color: #57565e;
 }
 
 .background-type-steel {
-  background-color: #7b8e8a;
+  background-color: #417d9a;
 }
 
 .background-type-fairy {
-  background-color: #ff9fc2;
+  background-color: #ed6ec7;
 }
 
 .background-2-type-grass,
-.nes-btn.background-2-type-grass:hover {
-  background-color: #67f70a;
+.background-2-type-grass:hover {
+  background-color: #63b958;
 }
 
 
 .background-2-type-fire,
-.nes-btn.background-2-type-fire:hover {
-  background-color: #f8b80e;
+.background-2-type-fire:hover {
+  background-color: #fd7d24;
 }
 
 .background-2-type-water,
-.nes-btn.background-2-type-water:hover {
-  background-color: #36aff6;
+.background-2-type-water:hover {
+  background-color: #4a90da;
 }
 
 .background-2-type-normal,
-.nes-btn.background-2-type-normal:hover {
+.background-2-type-normal:hover {
   background-color: #eaeade;
 }
 
 .background-2-type-flying,
-.nes-btn.background-2-type-flying:hover {
+.background-2-type-flying:hover {
   background-color: #dce5ea;
 }
 
 .background-2-type-bug,
-.nes-btn.background-2-type-bug:hover {
+.background-2-type-bug:hover {
   background-color: #d9fe9e;
 }
 
 .background-2-type-poison,
-.nes-btn.background-2-type-poison:hover {
+.background-2-type-poison:hover {
   background-color: #ca72eb;
 }
 
 .background-2-type-electric,
-.nes-btn.background-2-type-electric:hover {
+.background-2-type-electric:hover {
   background-color: #f7ff85;
 }
 
 .background-2-type-ground,
-.nes-btn.background-2-type-ground:hover {
+.background-2-type-ground:hover {
   background-color: #ede193;
 }
 
 .background-2-type-fighting,
-.nes-btn.background-2-type-fighting:hover {
+.background-2-type-fighting:hover {
   background-color: #d36063;
 }
 
 .background-2-type-psychic,
-.nes-btn.background-2-type-psychic:hover {
+.background-2-type-psychic:hover {
   background-color: #f55792;
 }
 
 .background-2-type-rock,
-.nes-btn.background-2-type-rock:hover {
+.background-2-type-rock:hover {
   background-color: #94834f;
 }
 
 .background-2-type-ice,
-.nes-btn.background-2-type-ice:hover {
+.background-2-type-ice:hover {
   background-color: #66d1e5;
 }
 
 .background-2-type-ghost,
-.nes-btn.background-2-type-ghost:hover {
+.background-2-type-ghost:hover {
   background-color: #bd98cb;
 }
 
 .background-2-type-dragon,
-.nes-btn.background-2-type-dragon:hover {
+.background-2-type-dragon:hover {
   background-color: #d6b1fe;
 }
 
 .background-2-type-dark,
-.nes-btn.background-2-type-dark:hover {
+.background-2-type-dark:hover {
   background-color: #916852;
 }
 
 .background-2-type-steel,
-.nes-btn.background-2-type-steel:hover {
+.background-2-type-steel:hover {
   background-color: #bbc5c4;
 }
 
 .background-2-type-fairy,
-.nes-btn.background-2-type-fairy:hover {
+.background-2-type-fairy:hover {
   background-color: #fdd1e0;
 }

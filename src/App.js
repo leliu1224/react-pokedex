@@ -1,6 +1,6 @@
 import React from "react";
 import Pokedex from "./Pokedex";
-import Pokemon from "./PokemonDetails";
+import PokemonDetails from "./PokemonDetails";
 import "./css/normalize.css";
 import "./css/styles.scss";
 import "./css/global.css";
@@ -13,7 +13,7 @@ const App = () => (
     <Route
       exact
       path="/:pokemonId"
-      render={(props) => <Pokemon {...props} />}
+      render={(props) => <PokemonDetails {...props} />}
     />
   </Switch>
 );

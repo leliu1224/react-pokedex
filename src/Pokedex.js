@@ -10,7 +10,7 @@ const Pokedex = (props) => {
   const [searchFilter, setSearchFilter] = useState("");
   const [allPokemons, setAllPokemons] = useState([]);
   const [loadMore, setLoadMore] = useState(
-    "https://pokeapi.co/api/v2/pokemon?limit=1"
+    "https://pokeapi.co/api/v2/pokemon?limit=5"
   );
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Pokedex = (props) => {
 
   return (
     <section className="pokedex-container ">
-      <h1 className="pokedex-text">PokeDex</h1>
+      <h1 className="pokedex-text">Pokedex</h1>
       <div className="search-container">
         <input onChange={handleSearchChange} placeholder="Search Pokemon" />
       </div>
@@ -76,7 +76,9 @@ const Pokedex = (props) => {
             <PokemonThumbnail
               key={index}
               id={pokemonDetails.id}
-              image={pokemonDetails.sprites.front_default}
+              image={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(
+                index + 1
+              ).padStart(3, "0")}.png`}
               name={pokemonDetails.name}
               types={pokemonDetails.types}
             />
