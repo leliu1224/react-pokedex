@@ -9,6 +9,81 @@
   cursor: default;
 }
 
+/*
+    Animations
+*/
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pull-up-center {
+  from {
+    transform: translateY(50%) translateX(-50%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+@keyframes pull-down-center {
+  from {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(50%) translateX(-50%);
+    opacity: 0;
+  }
+}
+
+@keyframes pull-up {
+  from {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fill {
+  from {
+    width: 0;
+  }
+}
+
 body {
   font-size: 14px;
   background: #212529;
@@ -138,8 +213,33 @@ body {
 .pokemon-container .back-button {
   font-size: 20px;
   position: absolute;
+  padding: 1em;
   border: none;
   background: none;
+}
+
+.back-button .arrow {
+  position: relative;
+  display: block;
+  --width: 3px;
+  width: 1em;
+  height: var(--width);
+  margin: auto;
+  --color: #ffffff;
+  background-color: var(--color);
+}
+
+.back-button .arrow::after {
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-top: calc(var(--width) * -1.4);
+  content: "";
+  transform: rotate(225deg);
+  border: var(--width) solid var(--color);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
 }
 
 .pokemon-info {
@@ -177,14 +277,55 @@ body {
   /* width: 75%; */
 }
 
+/* EVOLUTION */
+
 .evolution-tab-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  text-align: center;
 }
 
 .evolution-container {
-  width: 50%;
+  width: 30%;
+}
+
+.evolution-container img {
+  width: 75px;
+}
+
+.evolution-container .name {
+  font-size: 1em;
+}
+
+.evolution-container.trigger {
+  font-weight: 600;
+}
+
+.evolution-container .arrow {
+  position: relative;
+  display: block;
+  --width: 3px;
+  width: 2.5em;
+  height: var(--width);
+  margin: auto;
+  --color: #eeeeee;
+  background-color: var(--color);
+}
+
+.evolution-container .arrow::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-top: calc(var(--width) * -1.4);
+  content: "";
+  transform: rotate(45deg);
+  border: var(--width) solid var(--color);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
 }
 
 /* MOVES */
@@ -220,40 +361,6 @@ table.moves-table td {
   color: #555555;
 }
 
-
-/* STATS */
-.stat-container {
-  margin-bottom: 1.5em;
-}
-.stat-name {
-  margin-top: 0;
-  margin-bottom: 0;
-  text-transform: capitalize;
-}
-
-.stat-bar {
-  width: 100%;
-}
-
-.stat-bar .hp {
-  background-color: #ff0100;
-}
-
-.stat-bar .attack {
-  background-color: #f08030;
-}
-.stat-bar .defense {
-  background-color: #f8d030;
-}
-.stat-bar .special-attack {
-  background-color: #6791f0;
-}
-.stat-bar .special-defense {
-  background-color: #78c950;
-}
-.stat-bar .speed {
-  background-color: #f85887;
-}
 
 
 
@@ -291,6 +398,7 @@ table.moves-table td {
 }
 
 .tab-list-active {
+  font-weight: 700;
   color: #000000;
   border-bottom: 3px solid #bbbbbb;
 

@@ -1,0 +1,32 @@
+/* MOVES */
+.moves-table {
+  width: 100%;
+  margin: auto;
+}
+
+.moves-table thead tr,
+.moves-table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #000000;
+}
+
+table.moves-table td {
+  padding: 1em;
+}
+
+.moves-list {
+  padding-left: 0;
+}
+
+.move-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dddddd;
+}
+
+.move-name {
+  text-transform: capitalize;
+}
+
+.move-level {
+  color: #555555;
+}

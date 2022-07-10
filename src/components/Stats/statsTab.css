@@ -1,0 +1,79 @@
+/* STATS */
+.stat-container {
+  margin-bottom: 1.5em;
+}
+
+.stat-container table {
+  width: 100%;
+}
+
+.stat-container table tr td {
+  padding: 0.5em 0;
+}
+
+.stat-container table td:first-child {
+  font-weight: 600;
+  width: 20%;
+}
+
+.stat-container table td:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
+
+.stat-bar {
+  width: 100%;
+}
+
+.range-view.hp::after {
+  background-color: #ff0100;
+}
+
+.range-view.attack::after {
+  background-color: #f08030;
+}
+
+.range-view.defense::after {
+  background-color: #f8d030;
+}
+
+.range-view.special-attack::after {
+  background-color: #6791f0;
+}
+
+.range-view.special-defense::after {
+  background-color: #78c950;
+}
+
+.range-view.speed::after {
+  background-color: #f85887;
+}
+
+.range-view {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 5px;
+  margin: 0 10px;
+  border-radius: 100rem;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.range-view::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: var(--percent);
+  height: 100%;
+  content: "";
+  animation: fill 0.3s backwards;
+  border-radius: inherit;
+}

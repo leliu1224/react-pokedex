@@ -5,9 +5,8 @@ import axios from "axios";
 // import pokemonMockData from "./data/pokemonData";
 // import pokemonAboutData from "./data/pokemonAboutData";
 // import pokemonEvolutionData from "./data/pokemonEvolutionData";
-import Tab from "./components/Tab";
-import TabContent from "./components/TabContent";
-import TabNavItem from "./components/TabNavItem";
+import TabContent from "./components/Tabs/TabContent";
+import TabNavItem from "./components/Tabs/TabNavItem";
 import EvolutionTab from "./components/Evolution/evolutionTab";
 import MovesTab from "./components/Moves/movesTab";
 import StatsTab from "./components/Stats/statsTab";
@@ -22,7 +21,7 @@ const Pokemon = (props) => {
   // type of pokemon (Seed)
   const [pokemonFlavorText, setPokemonFlavorText] = useState();
   // set the tab that is active
-  const [activeTab, setActiveTab] = useState("evolution");
+  const [activeTab, setActiveTab] = useState("stats");
 
   useEffect(() => {
     // - multiple get with axios
@@ -75,7 +74,7 @@ const Pokemon = (props) => {
         className={`pokemon-container background-type-${types[0].type.name}`}
       >
         <button className="back-button" onClick={() => history.push("/")}>
-          {"<"}
+          <div className="arrow"></div>
         </button>
         <div className="pokemon-info">
           <div className="pokemon-details">

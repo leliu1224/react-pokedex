@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./evolutionTab.css";
 
 import axios from "axios";
 
@@ -8,6 +9,12 @@ const EvolutionTab = ({ pokemon }) => {
 
   const [pokemonEvolution, setPokemonEvolution] = useState();
   const [evolutionChain, setEvolutionChain] = useState([]);
+
+  const triggersDisplayName = {
+    "level-up": "Lvl",
+    trade: "Trade",
+    "use-item": "Use",
+  };
 
   useEffect(() => {
     // - multiple get with axios
@@ -34,35 +41,45 @@ const EvolutionTab = ({ pokemon }) => {
             var evoChain = [];
             var evoData = response.data.chain;
 
-            evoChain.push({
-              species_name: name,
-              min_level: 0,
-              url: pokemon.species.url,
-              id: id,
-              trigger_name: "none",
-            });
+            // var basePokemon =
+            // evoChain.push({
+            //   species_name: evoData.species,
+            //   min_level: 0,
+            //   url: pokemon.species.url,
+            //   id: id,
+            //   trigger_name: "none",
+            // });
 
             do {
               // add base pokemon to this list
-              var evoDetails = evoData.evolves_to[0];
+              // var evoDetails = evoData.evolves_to[0];
 
               evoChain.push({
-                species_name: evoDetails.species.name,
-                min_level: !evoDetails
-                  ? 1
-                  : evoDetails.evolution_details[0].min_level,
-                url: evoDetails.species.url,
-                id: evoDetails.species.url
+                species_name: evoData.species.name,
+                // min_level: !evoDetails
+                //   ? 1
+                //   : evoDetails.evolution_details[0].min_level,
+                // url: evoDetails.species.url,
+                id: evoData.species.url
                   .replace("https://pokeapi.co/api/v2/pokemon-species/", "")
                   .replace("/", ""),
-                trigger_name: !evoDetails
-                  ? null
-                  : evoDetails.evolution_details[0].trigger.name,
-                item: !evoDetails ? null : evoDetails.evolution_details[0].item,
+                trigger: evoData.evolution_details[0]
+                  ? evoData.evolution_details[0].trigger.name
+                  : "",
+                triggerValue: evoData.evolution_details[0]
+                  ? evoData.evolution_details[0].min_level ||
+                    evoData.evolution_details[0].min_happiness ||
+                    evoData.evolution_details[0].item?.name.replace("-", " ") ||
+                    ""
+                  : "",
+                // trigger_name: !evoDetails
+                //   ? null
+                //   : evoDetails.evolution_details[0].trigger.name,
+                // item: !evoDetails ? null : evoDetails.evolution_details[0].item,
               });
 
               evoData = evoData.evolves_to[0];
-            } while (!!evoData && evoData.evolves_to.length > 0);
+            } while (!!evoData);
 
             setEvolutionChain(evoChain);
           })
@@ -82,6 +99,12 @@ const EvolutionTab = ({ pokemon }) => {
     <>
       {evolutionChain !== undefined &&
         evolutionChain.map((evolution, index) => {
+          var nextEvolution = evolutionChain[index + 1];
+
+          if (nextEvolution == null) {
+            return <hr />;
+          }
+
           return (
             // current pokemon in the index
             // get next pokemon
@@ -89,12 +112,7 @@ const EvolutionTab = ({ pokemon }) => {
             // next pokemon
             <div className="evolution-tab-container">
               <div className="evolution-container">
-                <p>By {evolution.trigger_name || ""}</p>
-                <p>With {evolution.item || ""}</p>
-                <p>Level {evolution.min_level || ""}</p>
-              </div>
-              <div className="evolution-container">
-                <p>{evolution.species_name || ""}</p>
+                <p className="name">{evolution.species_name || ""}</p>
                 <img
                   src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(
                     evolution.id
@@ -102,7 +120,22 @@ const EvolutionTab = ({ pokemon }) => {
                   alt=""
                 />
               </div>
-
+              <div className="evolution-container trigger">
+                <p>
+                  {triggersDisplayName[nextEvolution.trigger]}{" "}
+                  {nextEvolution.triggerValue || ""}
+                </p>
+                <div class="arrow"></div>
+              </div>
+              <div className="evolution-container">
+                <p className="name">{nextEvolution.species_name || ""}</p>
+                <img
+                  src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(
+                    nextEvolution.id
+                  ).padStart(3, "0")}.png`}
+                  alt=""
+                />
+              </div>
               {/* <p>{evolution.url}</p> */}
             </div>
           );
