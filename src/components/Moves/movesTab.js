@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./movesTab.css";
 
 const MovesTab = ({ pokemon }) => {
   const { name, id, species, height, weight, stats, types, sprites, moves } =
@@ -30,7 +31,7 @@ const MovesTab = ({ pokemon }) => {
     <ul className="moves-list">
       {levelupMoves.map((move) => {
         return (
-          <li className="move-item">
+          <li className="move-item" key={move.move.name}>
             <p className="move-name">{move.move.name.replace("-", " ")}</p>
             <p className="move-level">
               Level {move.version_group_details[0].level_learned_at}

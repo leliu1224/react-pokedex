@@ -1,0 +1,55 @@
+/* EVOLUTION */
+
+.evolution-tab-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  box-sizing: content-box;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 1em;
+  padding: 1em;
+  text-align: center;
+}
+
+.evolution-container {
+  width: 30%;
+}
+
+.evolution-container img {
+  width: 75px;
+}
+
+.evolution-container .name {
+  font-size: 1em;
+}
+
+.evolution-container.trigger {
+  font-weight: 600;
+}
+
+.evolution-container .arrow {
+  position: relative;
+  display: block;
+  --width: 3px;
+  width: 2.5em;
+  height: var(--width);
+  margin: auto;
+  --color: #eeeeee;
+  background-color: var(--color);
+}
+
+.evolution-container .arrow::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-top: calc(var(--width) * -1.4);
+  content: "";
+  transform: rotate(45deg);
+  border: var(--width) solid var(--color);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}

@@ -19,26 +19,28 @@ const StatsTab = ({ pokemon }) => {
   return (
     <div className="stat-container">
       <table>
-        {statsLabels.map((stat, i) => {
-          const widthPercetage = {
-            width: `${(stat.base_stat / 200) * 100}%`,
-          };
+        <tbody>
+          {statsLabels.map((stat, i) => {
+            const widthPercetage = {
+              width: `${(stat.base_stat / 200) * 100}%`,
+            };
 
-          return (
-            <tr>
-              <td>{`${stat}`}</td>
-              <td>
-                {`${stats[i].base_stat}`}
-                <div
-                  className={`range-view ${stats[i].stat.name}`}
-                  style={{
-                    "--percent": `${(stats[i].base_stat / 150) * 100}%`,
-                  }}
-                />
-              </td>
-            </tr>
-          );
-        })}
+            return (
+              <tr key={stats[i].stat.name}>
+                <td>{`${stat}`}</td>
+                <td>
+                  {`${stats[i].base_stat}`}
+                  <div
+                    className={`range-view ${stats[i].stat.name}`}
+                    style={{
+                      "--percent": `${(stats[i].base_stat / 150) * 100}%`,
+                    }}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );

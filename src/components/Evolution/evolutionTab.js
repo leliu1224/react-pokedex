@@ -102,7 +102,7 @@ const EvolutionTab = ({ pokemon }) => {
           var nextEvolution = evolutionChain[index + 1];
 
           if (nextEvolution == null) {
-            return <hr />;
+            return <p key={`empty-${index}`}></p>;
           }
 
           return (
@@ -110,7 +110,10 @@ const EvolutionTab = ({ pokemon }) => {
             // get next pokemon
             // => next pokemon requirement for level up
             // next pokemon
-            <div className="evolution-tab-container">
+            <div
+              className="evolution-tab-container"
+              key={`${evolution.species_name}-${index}`}
+            >
               <div className="evolution-container">
                 <p className="name">{evolution.species_name || ""}</p>
                 <img
@@ -125,7 +128,7 @@ const EvolutionTab = ({ pokemon }) => {
                   {triggersDisplayName[nextEvolution.trigger]}{" "}
                   {nextEvolution.triggerValue || ""}
                 </p>
-                <div class="arrow"></div>
+                <div className="arrow"></div>
               </div>
               <div className="evolution-container">
                 <p className="name">{nextEvolution.species_name || ""}</p>
