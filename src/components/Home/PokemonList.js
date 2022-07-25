@@ -43,7 +43,7 @@ const PokemonList = (props) => {
             key={pokemonDetails.name}
             id={pokemonDetails.id}
             image={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(
-              index + 1
+              pokemonDetails.id
             ).padStart(3, "0")}.png`}
             name={pokemonDetails.name}
             types={pokemonDetails.types}

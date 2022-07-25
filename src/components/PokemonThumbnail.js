@@ -30,7 +30,7 @@ class PokemonThumb extends React.Component {
         </div>
         <div className="img-container">
           {/* <div className="img-background"></div> */}
-          {/* <img src={this.props.image} alt={this.props.name} /> */}
+          <img src={this.props.image} alt={this.props.name} />
         </div>
       </div>
     );

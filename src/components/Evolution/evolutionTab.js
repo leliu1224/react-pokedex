@@ -14,6 +14,7 @@ const EvolutionTab = ({ pokemon }) => {
     "level-up": "Lvl",
     trade: "Trade",
     "use-item": "Use",
+    Happiness: "Happiness",
   };
 
   useEffect(() => {
@@ -64,7 +65,9 @@ const EvolutionTab = ({ pokemon }) => {
                   .replace("https://pokeapi.co/api/v2/pokemon-species/", "")
                   .replace("/", ""),
                 trigger: evoData.evolution_details[0]
-                  ? evoData.evolution_details[0].trigger.name
+                  ? evoData.evolution_details[0].min_happiness
+                    ? "Happiness"
+                    : evoData.evolution_details[0].trigger.name
                   : "",
                 triggerValue: evoData.evolution_details[0]
                   ? evoData.evolution_details[0].min_level ||
